@@ -1,0 +1,18 @@
+{
+  "name": "scambait",
+  "version": "1.0.0",
+  "description": "ScamBait - an AI decoy that keeps phone scammers talking and turns every call into fraud intelligence. Built with Gemini, Cloud Run, Firestore and Firebase.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "USE_MEMORY_STORE=1 node server.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@google/genai": "^1.20.0",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.0.0",
+    "google-auth-library": "^9.15.1"
+  }
+}

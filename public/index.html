@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ScamBait: an AI decoy for scam calls</title>
+  <meta name="description" content="ScamBait answers scam calls with an AI grandparent who keeps fraudsters talking and turns every call into fraud intelligence." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>ScamBait</h1>
+        <p>An AI grandparent that keeps scammers busy and turns their calls into evidence.</p>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="call">Live call</button>
+      <button role="tab" aria-selected="false" data-tab="feed">Threat feed</button>
+    </nav>
+  </header>
+
+  <main id="view-call" class="view call-layout">
+    <section class="call-panel" aria-label="Call">
+      <div class="persona">
+        <div class="avatar" id="avatar" aria-hidden="true">K</div>
+        <div class="persona-text">
+          <label for="persona">Decoy</label>
+          <select id="persona"></select>
+          <p id="persona-blurb" class="muted"></p>
+        </div>
+        <div class="clock" aria-live="off">
+          <span id="timer">00:00</span>
+          <small>of scammer time wasted</small>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="field">
+          <label for="mode">Who plays the scammer?</label>
+          <select id="mode">
+            <option value="demo">Gemini (AI vs AI demo)</option>
+            <option value="voice">Me, speaking</option>
+            <option value="text">Me, typing</option>
+          </select>
+        </div>
+        <div class="field" id="scenario-field">
+          <label for="scenario">Scam script</label>
+          <select id="scenario"></select>
+        </div>
+        <div class="field">
+          <label for="lang">Speech language</label>
+          <select id="lang">
+            <option value="en-IN">English (India)</option>
+            <option value="hi-IN">Hindi</option>
+          </select>
+        </div>
+        <div class="buttons">
+          <button id="start" class="btn btn-answer">Answer the call</button>
+          <button id="end" class="btn btn-hangup" disabled>Hang up and file report</button>
+          <label class="check"><input type="checkbox" id="sound" checked /> Play voices</label>
+        </div>
+      </div>
+
+      <p id="status" class="status" role="status">Pick a decoy and press Answer the call.</p>
+
+      <ol id="transcript" class="transcript" aria-live="polite"></ol>
+
+      <form id="typed" class="typed" hidden>
+        <label for="typed-input" class="sr-only">What the scammer says</label>
+        <input id="typed-input" autocomplete="off" placeholder="Type what the scammer says…" />
+        <button class="btn btn-small">Say it</button>
+      </form>
+    </section>
+
+    <aside class="intel-panel" aria-label="Live fraud intelligence">
+      <h2>What Gemini is picking up</h2>
+      <div class="risk">
+        <div class="risk-head"><span>Scam likelihood</span><strong id="risk-num">0</strong></div>
+        <div class="risk-bar"><div id="risk-fill"></div></div>
+      </div>
+      <dl class="facts">
+        <div><dt>Scam type</dt><dd id="scam-type">Waiting for the caller</dd></div>
+        <div><dt>Pretending to be</dt><dd id="imp">Not yet clear</dd></div>
+      </dl>
+      <h3>Evidence collected</h3>
+      <ul id="entities" class="entities"><li class="empty">Identifiers the scammer reveals will appear here.</li></ul>
+      <h3>Manipulation tactics</h3>
+      <ul id="tactics" class="chips"></ul>
+      <h3>Red flags</h3>
+      <ul id="flags" class="flags"></ul>
+      <p id="summary" class="summary"></p>
+    </aside>
+  </main>
+
+  <main id="view-feed" class="view feed" hidden>
+    <div class="feed-stats">
+      <div><span id="f-calls">0</span><small>scam calls handled</small></div>
+      <div><span id="f-time">0m</span><small>of scammer time wasted</small></div>
+      <div><span id="f-ind">0</span><small>scammer identifiers collected</small></div>
+      <div><span id="f-lat">–</span><small>average AI response time</small></div>
+    </div>
+    <section class="feed-grid">
+      <div>
+        <h2>Scams by type</h2>
+        <ul id="f-types" class="bars"></ul>
+      </div>
+      <div>
+        <h2>Latest scammer identifiers</h2>
+        <p class="muted">Shared with every user so banks and the public can block them sooner.</p>
+        <table class="ind-table">
+          <thead><tr><th>Identifier</th><th>Kind</th><th>Seen</th><th>Used in</th></tr></thead>
+          <tbody id="f-table"><tr><td colspan="4" class="muted">Finish a call to add the first identifiers.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="report">
+    <h2>Complaint draft</h2>
+    <p class="muted">Ready to paste into cybercrime.gov.in or read out on the 1930 helpline.</p>
+    <pre id="report-text"></pre>
+    <div class="buttons">
+      <button id="copy" class="btn btn-answer">Copy complaint</button>
+      <button id="close" class="btn btn-ghost">Close</button>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
